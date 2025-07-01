@@ -8,6 +8,7 @@ import com.example.EcoTaxi.model.LoginResponse;
 import com.example.EcoTaxi.security.JwtUtil;
 import com.example.EcoTaxi.service.AdminService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +19,17 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/admins")
-@RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class AdminController {
 
+
     private final AdminService adminService;
     private final JwtUtil jwtUtil;
+
+    public AdminController(AdminService adminService, JwtUtil jwtUtil) {
+        this.adminService = adminService;
+        this.jwtUtil = jwtUtil;
+    }
 
     @PostMapping("/register")
     public ResponseEntity<?> register(@RequestBody Admin admin) {
